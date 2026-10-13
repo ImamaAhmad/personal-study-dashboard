@@ -1,0 +1,1176 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Study Diary ♡</title>
+<style>
+:root {
+  --pink:#f5c9dc; --pink-dark:#d97da9; --lav:#e5dcff;
+  --blue:#d9edff; --cream:#fffaff; --ink:#65566f;
+  --white:#ffffff; --green:#ccebdc; --shadow:0 8px 25px #9b7caa18;
+}
+* {box-sizing:border-box}
+body {
+  margin:0; font-family:"Trebuchet MS",Arial,sans-serif;
+  background:linear-gradient(135deg,#fff1f7,#f3efff 48%,#eaf6ff);
+  color:var(--ink); min-height:100vh;
+}
+button,input,textarea,select {font:inherit}
+button {cursor:pointer;border:0}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible {
+  outline:2px solid var(--pink-dark);outline-offset:3px
+}
+header {
+  text-align:center;padding:30px 16px 20px;
+  background:#ffffff80;border-bottom:1px solid #fff
+}
+header h1 {margin:0;font-size:clamp(27px,5vw,42px);color:#bf78a1}
+header p {margin:9px 0 0}
+nav {
+  display:flex;justify-content:center;flex-wrap:wrap;gap:8px;
+  padding:14px;background:#ffffff90;position:sticky;top:0;z-index:5;
+  backdrop-filter:blur(12px)
+}
+nav button,.btn {
+  background:#fff;border:1px solid #f0e2f3;border-radius:20px;
+  padding:10px 15px;color:var(--ink);transition:.2s
+}
+nav button:hover,.btn:hover {background:var(--lav);transform:translateY(-1px)}
+nav button.active {background:var(--pink);color:#70485e}
+main {max-width:1150px;margin:auto;padding:20px}
+.page {display:none}
+.page.active {display:block}
+.card {
+  background:#ffffffd9;border:1px solid #fff;border-radius:22px;
+  padding:20px;margin-bottom:18px;box-shadow:var(--shadow)
+}
+h2 {font-size:22px;margin:0 0 15px;color:#ad78a5}
+h3 {font-size:16px;margin:0 0 10px}
+.muted {color:#9b8ba5;font-size:13px}
+.grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.stat {padding:18px;border-radius:18px;background:linear-gradient(135deg,#fff1f7,#f1edff)}
+.stat strong {display:block;font-size:27px;margin:6px 0;color:#bd79a1}
+.progress {height:10px;background:#f0e7f4;border-radius:20px;overflow:hidden;margin:10px 0}
+.progress div {height:100%;background:linear-gradient(90deg,#efaed0,#bba8f7);width:0;transition:width .3s}
+.row {display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+input,textarea,select {
+  border:1px solid #eaddeb;border-radius:12px;padding:10px;
+  background:#fffaff;color:var(--ink);max-width:100%
+}
+textarea {width:100%;min-height:80px;resize:vertical}
+.btn.primary {background:var(--pink);font-weight:bold}
+.btn.lav {background:var(--lav)}
+.btn.blue {background:var(--blue)}
+.btn.danger {background:#ffe5e9}
+.small {font-size:12px;padding:7px 10px}
+.weekdays {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.day {
+  border-radius:15px;background:#fff;padding:12px 8px;text-align:center;
+  border:1px solid #f0e8f2;cursor:pointer
+}
+.day.selected {background:var(--lav);border-color:#c7b7ef}
+.day b {display:block;margin-bottom:5px}
+.schedule {display:flex;flex-direction:column;gap:9px}
+.event {
+  display:grid;grid-template-columns:115px 1fr;gap:12px;
+  padding:12px;border-radius:14px;background:#fff4f9;border-left:4px solid var(--pink-dark)
+}
+.event.math {background:#f3efff;border-color:#bba8f7}
+.event.physics {background:#eaf5ff;border-color:#8fc9f4}
+.event.cs {background:#eaf8f1;border-color:#86c7aa}
+.event.econ {background:#fff5df;border-color:#e8c476}
+.event.sleep {background:#eae7ff;border-color:#9e8de5}
+.event.travel {background:#f0f3f7;border-color:#b2bac8}
+.event.meal {background:#fff2e9;border-color:#edb48f}
+.event time {font-weight:bold}
+.event .desc {font-size:13px;margin-top:4px}
+.checkrow {
+ display:flex;align-items:flex-start;gap:10px;padding:11px 0;
+ border-bottom:1px solid #f4edf5
+}
+.checkrow:last-child {border:0}
+.checkrow input {margin-top:4px;accent-color:#d58bb5}
+.checkrow label {flex:1;line-height:1.45}
+.checkrow.done label {text-decoration:line-through;color:#ad9fb0}
+.tag {display:inline-block;padding:4px 9px;background:#f3edff;border-radius:20px;font-size:11px}
+.timer-scene {
+  position:relative;overflow:hidden;text-align:center;min-height:370px;
+  padding:28px 15px;border-radius:24px;
+  background:linear-gradient(150deg,#f8d9e8,#e8dcff 52%,#d9edff)
+}
+.timer-scene:before {
+  content:"☁️       ✧       ☁️";display:block;font-size:26px;opacity:.7
+}
+.timer-scene:after {
+  content:"🌷   🌿   🌷";display:block;font-size:29px;margin-top:18px
+}
+.timer-display {font-size:clamp(55px,12vw,86px);font-weight:bold;letter-spacing:2px;margin:20px 0;color:#876d9b}
+.timer-mode {font-size:14px;letter-spacing:2px;text-transform:uppercase}
+.timer-actions {display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
+input[type=range] {accent-color:#d58bb5}
+table {border-collapse:collapse;width:100%;font-size:13px}
+th,td {padding:10px;text-align:left;border-bottom:1px solid #f0e7f3}
+th {background:#f6efff}
+footer {text-align:center;padding:25px;color:#a392ae;font-size:12px}
+@media(max-width:650px) {
+ main {padding:12px}
+ .card {padding:15px}
+ .weekdays {grid-template-columns:repeat(4,minmax(0,1fr))}
+ .event {grid-template-columns:90px 1fr}
+ nav {position:static}
+}
+/* Full-screen Pomodoro study sanctuary ♡ */
+body.pomodoro-fullscreen {
+  overflow: hidden;
+}
+
+body.pomodoro-fullscreen header,
+body.pomodoro-fullscreen nav,
+body.pomodoro-fullscreen footer,
+body.pomodoro-fullscreen main > .page:not(#pomodoro),
+body.pomodoro-fullscreen #pomodoro > .card:not(:first-child) {
+  display: none !important;
+}
+
+body.pomodoro-fullscreen main {
+  display: block;
+  max-width: none;
+  width: 100%;
+  height: 100dvh;
+  padding: 12px;
+}
+
+body.pomodoro-fullscreen #pomodoro {
+  display: block;
+  height: 100%;
+}
+
+body.pomodoro-fullscreen #pomodoro > .card:first-child {
+  height: 100%;
+  margin: 0;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 28px;
+}
+
+body.pomodoro-fullscreen #pomodoro h2 {
+  text-align: center;
+  font-size: clamp(22px, 3vw, 34px);
+}
+
+body.pomodoro-fullscreen #pomodoro > .card:first-child > p {
+  text-align: center;
+}
+
+body.pomodoro-fullscreen .timer-scene {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+  border-radius: 28px;
+  background:
+    radial-gradient(ellipse at 20% 15%, #ffffffa8, transparent 35%),
+    linear-gradient(145deg, #f9d9e9, #e9ddff 52%, #d9efff);
+}
+
+body.pomodoro-fullscreen .timer-display {
+  font-size: clamp(85px, 18vw, 180px);
+  line-height: 1.1;
+  margin: 22px 0;
+  letter-spacing: 5px;
+}
+
+body.pomodoro-fullscreen .timer-mode {
+  font-size: clamp(14px, 2vw, 21px);
+}
+
+body.pomodoro-fullscreen .timer-scene:before {
+  font-size: clamp(24px, 4vw, 42px);
+}
+
+body.pomodoro-fullscreen .timer-scene:after {
+  font-size: clamp(28px, 5vw, 48px);
+}
+
+body.pomodoro-fullscreen #fullscreenBtn {
+  align-self: center;
+  margin-bottom: 12px;
+}
+
+@media (max-height: 600px) {
+  body.pomodoro-fullscreen .timer-display {
+    font-size: 70px;
+    margin: 8px 0;
+  }
+
+  body.pomodoro-fullscreen .timer-scene:before,
+  body.pomodoro-fullscreen .timer-scene:after {
+    display: none;
+  }
+}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎀 My Study Diary ♡</h1>
+  <p>A little progress every day is still progress ✨</p>
+  <p id="todayLine" class="muted"></p>
+</header>
+
+<nav id="nav">
+  <button class="active" data-page="home">🏠 Home</button>
+  <button data-page="timetable">🗓️ Timetable</button>
+  <button data-page="tasks">🌸 Tasks & Goals</button>
+  <button data-page="revision">📚 Revision</button>
+  <button data-page="meds">💊 Reminders</button>
+  <button data-page="pomodoro">🍅 Pomodoro</button>
+  <button data-page="stats">⭐ Progress</button>
+</nav>
+
+<main>
+<section class="page active" id="home">
+  <div class="card">
+    <h2 id="greeting">Hello, lovely human! ♡</h2>
+    <p>Welcome back to your cozy little study corner. You don't need to do everything at once.</p>
+    <div class="row">
+      <span class="tag" id="dateBadge"></span>
+      <span class="tag" id="streakBadge">🔥 0-day streak</span>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="stat"><span>Today's tasks</span><strong id="homeTasks">0/0</strong><div class="progress"><div id="taskProgress"></div></div><span class="muted">Little steps count ♡</span></div>
+    <div class="stat"><span>Study sessions</span><strong id="homeSessions">0</strong><span class="muted">Pomodoros completed today</span></div>
+    <div class="stat"><span>Study minutes</span><strong id="homeMinutes">0</strong><span class="muted">Today's focused time</span></div>
+    <div class="stat"><span>Medicine checklist</span><strong id="homeMeds">0/5</strong><span class="muted">Daily reminders checked</span></div>
+  </div>
+  <div class="card">
+    <h2>☁️ Today's little plan</h2>
+    <p class="muted">Your plan follows your school timetable. Between classes, leave room for travel, food and breathing.</p>
+    <div id="todaySchedule" class="schedule"></div>
+    <button class="btn lav" onclick="showPage('timetable')">See full timetable →</button>
+  </div>
+  <div class="card">
+    <h2>🌷 Daily intentions</h2>
+    <div id="homeGoals"></div>
+    <button class="btn primary" onclick="showPage('tasks')">Open task planner</button>
+  </div>
+</section>
+
+<section class="page" id="timetable">
+  <div class="card">
+    <h2>🗓️ My weekly timetable</h2>
+    <p class="muted">School lessons are fixed. Travel is 30 minutes each way. Wednesday lunch is at 4 PM; other days lunch is at 3:15 PM.</p>
+    <div class="weekdays" id="dayButtons"></div>
+  </div>
+  <div class="card">
+    <div class="row"><h2 id="scheduleTitle">Monday ♡</h2><span class="tag">Sleep: 11 PM</span></div>
+    <div class="schedule" id="fullSchedule"></div>
+  </div>
+  <div class="card">
+    <h2>♡ Routine notes</h2>
+    <ul>
+      <li>Travel to school: allow 30 minutes before the first lesson.</li>
+      <li>Travel home: allow 30 minutes after the last lesson.</li>
+      <li>Lunch: 3:15 PM, except Wednesday at 4:00 PM.</li>
+      <li>Dinner: 8:30 PM every day.</li>
+      <li>Weekend wake-up: 10:00 AM.</li>
+      <li>Sleep: weekdays 11 PM–6:30 AM; weekends 11 PM–10 AM.</li>
+    </ul>
+    <p class="muted">Free periods are flexible. Actual travel and lesson end times may need adjustment to match your commute.</p>
+  </div>
+</section>
+
+<section class="page" id="tasks">
+  <div class="card">
+    <h2>🌸 Today's goals</h2>
+    <p class="muted">Suggested AS practice goals, not a claim that these exact topics are scheduled in class. Adjust them to your current chapter.</p>
+    <div class="row">
+      <label for="goalDate">Date</label><input id="goalDate" type="date">
+      <button class="btn lav" onclick="resetTodayGoals()">Restore suggested goals</button>
+    </div>
+    <div id="goalList"></div>
+  </div>
+  <div class="card">
+    <h2>📝 My task planner</h2>
+    <form id="taskForm" class="grid">
+      <input id="taskName" placeholder="What needs doing?" required>
+      <select id="taskSubject">
+        <option>Mathematics</option><option>Physics</option><option>Computer Science</option><option>Economics</option><option>Personal</option>
+      </select>
+      <select id="taskPriority"><option>Normal</option><option>Important</option><option>Urgent</option></select>
+      <input id="taskDue" type="date">
+      <button class="btn primary" type="submit">＋ Add task</button>
+    </form>
+    <div id="taskList"></div>
+  </div>
+  <div class="card">
+    <h2>🧁 Notes for later</h2>
+    <textarea id="notes" placeholder="Homework details, things to ask your teacher, or anything on your mind..."></textarea>
+    <p class="muted">Notes save automatically in this browser.</p>
+  </div>
+</section>
+
+<section class="page" id="revision">
+  <div class="card">
+    <h2>📚 AS Level revision map</h2>
+    <p>Cambridge International · AS topics only</p>
+    <p class="muted">Tick a topic when you've revised it. This is a broad planning checklist, not an official syllabus transcription. Check the syllabus code and year for your exam session.</p>
+    <div class="row">
+      <label for="revisionSubject">Subject</label>
+      <select id="revisionSubject">
+        <option>Mathematics</option><option>Physics</option><option>Computer Science</option><option>Economics</option>
+      </select>
+    </div>
+    <div id="revisionList"></div>
+    <div class="progress"><div id="revisionProgress"></div></div>
+    <p class="muted" id="revisionCount"></p>
+  </div>
+  <div class="card">
+    <h2>🌱 Gentle revision strategy</h2>
+    <ol>
+      <li>Review class notes briefly on the same day.</li>
+      <li>Practise questions without looking at worked solutions.</li>
+      <li>Mark your answers and record mistakes.</li>
+      <li>Revisit difficult questions after a few days.</li>
+      <li>Use timed past-paper practice once the relevant content is covered.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="page" id="meds">
+  <div class="card">
+    <h2>💊 Daily reminder checklist</h2>
+    <p class="muted">Tick each item after you've taken it. These are reminders based on the times you provided, not medical advice.</p>
+    <div id="medList"></div>
+    <div class="row">
+      <button class="btn lav" onclick="resetMeds()">Reset today's checklist</button>
+      <button class="btn blue" onclick="requestNotifications()">Enable browser notifications</button>
+    </div>
+    <p class="muted" id="notificationStatus">Notifications only work when permission is granted and the website remains open.</p>
+  </div>
+</section>
+
+<section class="page" id="pomodoro">
+  <div class="card">
+    <h2>🍅 Cozy Pomodoro corner</h2>
+	<button class="btn primary" id="fullscreenBtn">⛶ Enter Full Screen</button>
+    <p class="muted">Take a breath. You only need to focus on the next little step. ♡</p>
+    <div class="timer-scene">
+      <div class="timer-mode" id="timerMode">Focus time</div>
+      <div class="timer-display" id="timerDisplay">25:00</div>
+      <div class="timer-actions">
+        <button class="btn primary" id="startTimer">▶ Start</button>
+        <button class="btn lav" id="pauseTimer">Ⅱ Pause</button>
+        <button class="btn blue" id="resetTimer">↻ Reset</button>
+        <button class="btn" id="switchTimer">☕ Break</button>
+      </div>
+      <div style="margin-top:20px">
+        <label for="focusLength">Focus minutes </label>
+        <input id="focusLength" type="number" min="1" max="120" value="25" style="width:75px">
+        <label for="breakLength"> Break minutes </label>
+        <input id="breakLength" type="number" min="1" max="60" value="5" style="width:75px">
+      </div>
+      <div style="margin-top:15px">
+        <button class="btn" id="rainButton">🌧️ Play rain ambience</button>
+        <label style="margin-left:8px" for="rainVolume">Volume</label>
+        <input id="rainVolume" type="range" min="0" max="100" value="25">
+      </div>
+      <p class="muted">Rain audio is generated locally. No audio file or internet connection required.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>☁️ Your focus reminder</h2>
+    <p>Put your phone aside, get a little water, and work on one task. During breaks, stretch and rest your eyes.</p>
+  </div>
+</section>
+
+<section class="page" id="stats">
+  <div class="card">
+    <h2>🎀 My A-level A* Tracker</h2>
+    <p class="muted">Track your progress honestly. Your target is A* in every subject, one step at a time ♡</p>
+    <div class="grid" id="alevelGradeCards"></div>
+    <p class="muted">Grades are your own assessments, not predictions. Update them when you have new evidence.</p>
+  </div>
+
+  <div class="card">
+    <h2>📝 Exam Practice & Mistake Log</h2>
+    <p class="muted">Record your marks, identify mistakes, and decide what to practise next.</p>
+    <form id="practiceForm" class="grid">
+      <select id="practiceSubject" required>
+        <option>Mathematics</option>
+        <option>Physics</option>
+        <option>Economics</option>
+        <option>Computer Science</option>
+      </select>
+      <input id="practiceTopic" placeholder="Topic or paper" required>
+      <input id="practiceScore" type="number" min="0" step="any" placeholder="Marks earned" required>
+      <input id="practiceTotal" type="number" min="0.01" step="any" placeholder="Total marks" required>
+      <input id="practiceDate" type="date" required>
+      <textarea id="practiceMistake" placeholder="What went wrong, and what will you do differently next time?"></textarea>
+      <button class="btn primary" type="submit">＋ Save practice result</button>
+    </form>
+    <div id="practiceSummary"></div>
+    <div id="practiceLog"></div>
+  </div>
+
+  <div class="card">
+    <h2>⭐ Your progress garden</h2>
+    <div class="grid">
+      <div class="stat">🔥 Current streak<strong id="statStreak">0 days</strong></div>
+      <div class="stat">🌷 Best streak<strong id="bestStreak">0 days</strong></div>
+      <div class="stat">🍅 Total sessions<strong id="totalSessions">0</strong></div>
+      <div class="stat">⏳ Total focus time<strong id="totalMinutes">0 min</strong></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>🌸 Weekly focus</h2>
+    <div id="weeklyStats"></div>
+  </div>
+  <div class="card">
+    <h2>🪴 A note to yourself</h2>
+    <p>Progress is not about being perfect. Showing up, learning from mistakes, and trying again is what counts.</p>
+    <button class="btn lav" onclick="exportData()">Download my diary backup</button>
+    <label class="btn blue" for="importFile">Restore backup</label>
+    <input id="importFile" type="file" accept=".json,application/json" hidden>
+  </div>
+</section>
+</main>
+<footer>Made with love, pastel clouds & tiny steps ♡</footer>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+const DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const SUBJECTS = ["Mathematics","Physics","Computer Science","Economics"];
+const STORE = "myStudyDiary_v1";
+
+function localDate(date = new Date()) {
+  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
+}
+function shiftDate(date, amount) {
+  const d = new Date(date + "T12:00:00");
+  d.setDate(d.getDate()+amount);
+  return localDate(d);
+}
+function safeText(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
+}
+function defaultData() {
+  return {
+    tasks:[], goals:{}, meds:{}, revisions:{}, notes:"",
+    sessions:[], daily:{}, streak:0, bestStreak:0, lastGoalDate:""
+  };
+}
+let data = defaultData();
+try {
+  const saved = JSON.parse(localStorage.getItem(STORE) || "null");
+  if (saved && typeof saved === "object") data = {...defaultData(),...saved};
+} catch(e) {}
+function save() {
+  try { localStorage.setItem(STORE,JSON.stringify(data)); }
+  catch(e) { console.warn("Could not save diary",e); }
+}
+
+if (!data.alevel || typeof data.alevel !== "object") {
+  data.alevel = {};
+}
+if (!data.alevel.grades || typeof data.alevel.grades !== "object") {
+  data.alevel.grades = {};
+}
+if (!Array.isArray(data.alevel.attempts)) {
+  data.alevel.attempts = [];
+}
+
+const ALEVEL_GRADES = [
+  "Not set", "U", "E", "D", "C", "B", "A", "A*"
+];
+
+function renderAlevel() {
+  const grades = data.alevel.grades;
+  $("alevelGradeCards").innerHTML = SUBJECTS.map(subject => {
+    const current = ALEVEL_GRADES.includes(grades[subject])
+      ? grades[subject] : "Not set";
+
+    return `
+      <div class="stat">
+        <span>${safeText(subject)}</span>
+        <strong>${current === "Not set" ? "—" : safeText(current)}</strong>
+        <label for="grade-${safeText(subject)}">Current assessed grade</label>
+        <select id="grade-${safeText(subject)}"
+          data-grade-subject="${safeText(subject)}"
+          style="width:100%;margin-top:8px">
+          ${ALEVEL_GRADES.map(g =>
+            `<option value="${g}" ${g === current ? "selected" : ""}>${g}</option>`
+          ).join("")}
+        </select>
+        <span class="muted">Target: A*</span>
+      </div>`;
+  }).join("");
+
+  $("alevelGradeCards").querySelectorAll("[data-grade-subject]")
+    .forEach(el => el.addEventListener("change", () => {
+      data.alevel.grades[el.dataset.gradeSubject] = el.value;
+      save();
+      renderAlevel();
+    }));
+
+  const attempts = [...data.alevel.attempts]
+    .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+
+  const summary = SUBJECTS.map(subject => {
+    const latest = attempts.find(a => a.subject === subject);
+    return `<p><strong>${safeText(subject)}:</strong> ${
+      latest
+        ? `${latest.score}/${latest.total} (${(latest.score / latest.total * 100).toFixed(1)}%) — ${safeText(latest.date)}`
+        : "No practice results logged yet"
+    }</p>`;
+  }).join("");
+
+  $("practiceSummary").innerHTML =
+    `<h3>🌷 Latest results by subject</h3>${summary}`;
+
+  $("practiceLog").innerHTML = attempts.length
+    ? `<h3>📖 Recent practice history</h3>` +
+      attempts.slice(0, 20).map(a => `
+        <div class="checkrow">
+          <label>
+            <strong>${safeText(a.subject)} · ${safeText(a.topic)}</strong>
+            <div>${safeText(a.score)}/${safeText(a.total)} marks
+              (${(a.score / a.total * 100).toFixed(1)}%)</div>
+            <div class="muted">${safeText(a.date)}</div>
+            ${a.mistake
+              ? `<p>${safeText(a.mistake)}</p>` : ""}
+          </label>
+          <button class="btn danger small"
+            data-delete-attempt="${safeText(a.id)}">Delete</button>
+        </div>`).join("")
+    : `<p class="muted">Your first practice result will appear here ♡</p>`;
+
+  $("practiceLog").querySelectorAll("[data-delete-attempt]")
+    .forEach(el => el.addEventListener("click", () => {
+      data.alevel.attempts = data.alevel.attempts.filter(
+        a => a.id !== el.dataset.deleteAttempt
+      );
+      save();
+      renderAlevel();
+    }));
+}
+
+$("practiceDate").value = dayKey();
+
+$("practiceForm").addEventListener("submit", e => {
+  e.preventDefault();
+
+  const score = Number($("practiceScore").value);
+  const total = Number($("practiceTotal").value);
+
+  if (!Number.isFinite(score) || !Number.isFinite(total) ||
+      total <= 0 || score < 0 || score > total) {
+    alert("Please enter valid marks. Your score must be between zero and the total.");
+    return;
+  }
+
+  data.alevel.attempts.push({
+    id: Date.now().toString(36) +
+        Math.random().toString(36).slice(2, 7),
+    subject: $("practiceSubject").value,
+    topic: $("practiceTopic").value.trim(),
+    score,
+    total,
+    date: $("practiceDate").value || dayKey(),
+    mistake: $("practiceMistake").value.trim()
+  });
+
+  save();
+  $("practiceTopic").value = "";
+  $("practiceScore").value = "";
+  $("practiceTotal").value = "";
+  $("practiceMistake").value = "";
+  renderAlevel();
+});
+
+const school = {
+  Monday:[
+    ["08:00","09:00","Mathematics"],["10:00","12:00","Physics"]
+  ],
+  Tuesday:[
+    ["08:00","09:00","Mathematics"],["09:00","10:00","Economics"],["10:00","11:00","Physics"]
+  ],
+  Wednesday:[
+    ["08:00","09:00","Mathematics"],["10:00","11:00","Computer Science"],["14:00","15:00","Physics"]
+  ],
+  Thursday:[
+    ["08:00","09:00","Mathematics"],["09:00","10:00","Economics"],["10:00","11:00","Physics"],["13:00","14:00","Computer Science"]
+  ],
+  Friday:[
+    ["08:00","09:00","Mathematics"],["11:00","13:00","Computer Science"],["13:00","14:00","Economics"]
+  ],
+  Saturday:[],Sunday:[]
+};
+const suggestedGoals = {
+  Mathematics:[
+    "Solve 10 Pure Mathematics questions from your current topic.",
+    "Practise 5 differentiation questions.",
+    "Practise 5 binomial expansion questions, if currently covered.",
+    "Review mistakes and write down one method to remember."
+  ],
+  Physics:[
+    "Complete 8 structured questions from your current topic.",
+    "Practise 5 calculations with units and significant figures.",
+    "Review key definitions and equations for 10 minutes."
+  ],
+  "Computer Science":[
+    "Answer 5 short theory questions from your current topic.",
+    "Trace or write 2 pseudocode/algorithm problems.",
+    "Review 5 key definitions using active recall."
+  ],
+  Economics:[
+    "Define 5 key terms from the current chapter.",
+    "Practise one data-response or diagram question.",
+    "Write one short explanation using a clear chain of reasoning."
+  ]
+};
+const syllabus = {
+  Mathematics:[
+    {name:"Pure Mathematics",topics:[
+      "Quadratics, equations and inequalities",
+      "Functions and graphs",
+      "Coordinate geometry",
+      "Circular measure",
+      "Trigonometry",
+      "Series",
+      "Differentiation",
+      "Integration"
+    ]},
+    {name:"Mechanics",topics:[
+      "Quantities and units in mechanics",
+      "Kinematics in a straight line",
+      "Forces and equilibrium",
+      "Newton's laws of motion",
+      "Linear momentum"
+    ]}
+  ],
+  Physics:[
+    {name:"AS Physics",topics:[
+      "Physical quantities and units",
+      "Measurement techniques",
+      "Kinematics",
+      "Dynamics",
+      "Forces, density and pressure",
+      "Work, energy and power",
+      "Deformation of solids",
+      "Waves",
+      "Superposition",
+      "Electricity",
+      "D.C. circuits",
+      "Particle physics"
+    ]}
+  ],
+  "Computer Science":[
+    {name:"AS Computer Science",topics:[
+      "Information representation",
+      "Communication",
+      "Hardware and virtual machines",
+      "Processor fundamentals",
+      "System software",
+      "Security, privacy and data integrity",
+      "Ethics and ownership",
+      "Databases",
+      "Algorithm design and problem-solving",
+      "Data types and structures",
+      "Programming",
+      "Software development"
+    ]}
+  ],
+  Economics:[
+    {name:"AS Economics",topics:[
+      "Basic economic ideas and resource allocation",
+      "The price system and microeconomy",
+      "Government microeconomic intervention",
+      "The macroeconomy",
+      "Government macroeconomic intervention",
+      "International economic issues"
+    ]}
+  ]
+};
+// Reminder times are user-entered preferences, not dosing recommendations.
+const medicines = [
+  {id:"pep7",name:"Pepzyme",time:"7:00 AM"},
+  {id:"ev7",name:"E.V.",time:"7:00 AM"},
+  {id:"pep12",name:"Pepzyme",time:"12:00 PM"},
+  {id:"nutri",name:"Nutri",time:"3:30 PM"},
+  {id:"pep19",name:"Pepzyme",time:"7:00 PM"}
+];
+
+function currentDayName(date = new Date()) { return DAYS[date.getDay()]; }
+function timeMinutes(t) {
+  const [h,m] = t.split(":").map(Number);
+  return h*60+m;
+}
+function fmtTime(t) {
+  const [h,m] = t.split(":").map(Number);
+  const suffix = h < 12 ? "AM" : "PM";
+  return `${h%12||12}:${String(m).padStart(2,"0")} ${suffix}`;
+}
+function event(start,end,title,kind,desc="") {
+  return {start,end,title,kind,desc};
+}
+function buildSchedule(day) {
+  const items = [];
+  const weekend = day==="Saturday" || day==="Sunday";
+  const lessons = school[day] || [];
+  const lunchTime = day==="Wednesday" ? "16:00" : "15:15";
+
+  items.push(event("07:00","07:10","Medicine reminders","meal","Pepzyme + E.V. checklist"));
+  if (weekend) {
+    items.push(event("10:00","10:30","Wake up & breakfast","meal","Slow weekend morning ♡"));
+    items.push(event("10:30","11:00","Plan the day","personal","Choose a few realistic goals"));
+    items.push(event("11:00","12:00","Mathematics revision","math","Pure Maths or Mechanics"));
+    items.push(event("12:00","12:10","Medicine reminder","meal","Pepzyme checklist"));
+    items.push(event("12:10","13:00","Physics revision","physics","Questions from your current topic"));
+    items.push(event("13:00","14:00","Free time / gaming","personal","A guilt-free break"));
+    items.push(event("14:00","15:00","CS or Economics","cs","Alternate subjects each weekend"));
+    items.push(event("15:00","15:15","Rest & reset","personal","Prepare for lunch"));
+    items.push(event("15:15","16:00","Lunch","meal","Enjoy your meal"));
+    items.push(event("16:00","16:30","Medicine reminder","meal","Nutri checklist at 3:30 PM"));
+    items.push(event("16:30","18:00","Homework & catch-up","personal","Prioritise urgent work"));
+    items.push(event("18:00","19:00","Gaming / free time","personal","Take a proper break"));
+    items.push(event("19:00","19:10","Medicine reminder","meal","Pepzyme checklist"));
+    items.push(event("19:10","20:15","Light revision","math","Review errors or flashcards"));
+    items.push(event("20:30","21:00","Dinner","meal","Dinner time ♡"));
+    items.push(event("21:00","22:00","Relax & prepare","personal","Pack your bag if needed"));
+  } else {
+    items.push(event("06:30","07:00","Wake up & get ready","personal","Wash up and prepare for school"));
+    items.push(event("07:00","07:10","Morning reminders","meal","Pepzyme + E.V. checklist"));
+    items.push(event("07:10","07:30","Breakfast","meal","Eat before heading out"));
+    items.push(event("07:30","08:00","Travel to school","travel","30-minute journey"));
+    let cursor = 8*60;
+    for (const [start,end,subject] of lessons) {
+      const s = timeMinutes(start), e = timeMinutes(end);
+      if (s > cursor) {
+        addFreeBlock(items,cursor,s,day);
+      }
+      const kind = subject==="Mathematics"?"math":subject==="Physics"?"physics":subject==="Computer Science"?"cs":"econ";
+      items.push(event(start,end,subject,""+kind,"Fixed school lesson"));
+      cursor = e;
+    }
+    const lastEnd = lessons.length ? timeMinutes(lessons[lessons.length-1][1]) : 14*60;
+    if (lessons.length) {
+      // A lunch break remains at its stated time, even when it falls between lessons.
+      if (lastEnd < timeMinutes(lunchTime)) {
+        addFreeBlock(items,lastEnd,timeMinutes(lunchTime),day);
+      }
+    }
+    if (day==="Wednesday") {
+      items.push(event("15:00","15:30","Travel home","travel","30-minute journey"));
+      items.push(event("15:30","16:00","Rest / shower","personal","Freshen up before lunch"));
+      items.push(event("16:00","16:30","Lunch","meal","Wednesday lunch at 4 PM"));
+      items.push(event("16:30","17:00","Medicine reminder","meal","Nutri reminder is at 3:30 PM"));
+    } else {
+      items.push(event("14:00","14:30","Travel home","travel","30-minute journey"));
+      items.push(event("14:30","15:15","Rest / free time","personal","Recharge after school"));
+      items.push(event("15:15","15:45","Lunch","meal","Lunch time ♡"));
+      items.push(event("15:45","16:00","Medicine reminder","meal","Nutri reminder is at 3:30 PM"));
+    }
+    const revisionStart = day==="Wednesday" ? "16:30" : "16:00";
+    items.push(event(revisionStart,"17:00","Mathematics practice","math","Short focused practice"));
+    items.push(event("17:00","18:00","Homework / subject revision","physics","Follow your task planner"));
+    items.push(event("18:00","19:00","Gaming & free time","personal","Take a proper break"));
+    items.push(event("19:00","19:10","Medicine reminder","meal","Pepzyme checklist"));
+    items.push(event("19:10","20:00","Light revision","cs","Rotate subjects based on homework"));
+    items.push(event("20:00","20:30","Free time","personal","Reset before dinner"));
+    items.push(event("20:30","21:00","Dinner","meal","Dinner time ♡"));
+    items.push(event("21:00","22:00","Homework / prepare for tomorrow","personal","Keep it flexible"));
+  }
+  // 10–11 PM wind-down routine
+  items.push(event(
+    "22:00",
+    "23:00",
+    "Wind down & prepare for sleep",
+    "personal",
+    "Night routine, relax, and get ready for bed ♡"
+  ));
+
+  // Overnight sleep block
+  items.push(event(
+    "23:00",
+    weekend ? "10:00 (+1 day)" : "06:30 (+1 day)",
+    "Sleep",
+    "sleep",
+    "Rest and recharge ♡"
+  ));
+
+  return items;
+}
+function addFreeBlock(items,start,end,day) {
+  if (end<=start) return;
+  const midday = start>=12*60;
+  let label = midday ? "Free time / catch-up" : "Free period";
+  if (end-start>=45) label = midday ? "Study / free time" : "Free period / homework";
+  items.push(event(
+    `${String(Math.floor(start/60)).padStart(2,"0")}:${String(start%60).padStart(2,"0")}`,
+    `${String(Math.floor(end/60)).padStart(2,"0")}:${String(end%60).padStart(2,"0")}`,
+    label,"personal","Flexible time between fixed lessons"
+  ));
+}
+function renderSchedule(container,day) {
+  const list = buildSchedule(day);
+  container.innerHTML = list.map(e=>`
+    <div class="event ${e.kind}">
+      <div><strong>${safeText(fmtTime(e.start))}</strong><div class="muted">to ${safeText(fmtTime(e.end.replace(" (+1 day)",""))) }${e.end.includes("+1 day")?" next day":""}</div></div>
+      <div><strong>${safeText(e.title)}</strong><div class="desc">${safeText(e.desc)}</div></div>
+    </div>`).join("");
+}
+let selectedDay = currentDayName();
+function renderDays() {
+  $("dayButtons").innerHTML = DAYS.slice(1).concat("Sunday").map(day=>`
+    <div class="day ${day===selectedDay?"selected":""}" data-day="${day}">
+      <b>${day.slice(0,3)}</b><span class="muted">${school[day].length?school[day].length+" lessons":"Weekend"}</span>
+    </div>`).join("");
+  $("dayButtons").querySelectorAll("[data-day]").forEach(el=>el.addEventListener("click",()=>{
+    selectedDay=el.dataset.day;renderDays();$("scheduleTitle").textContent=selectedDay+" ♡";
+    renderSchedule($("fullSchedule"),selectedDay);
+  }));
+}
+function dayKey() { return localDate(); }
+function getGoals(date=dayKey()) {
+  if (!data.goals[date]) {
+    data.goals[date] = SUBJECTS.flatMap(subject =>
+      suggestedGoals[subject].map((text,i)=>({id:subject+"-"+i,text,subject,done:false}))
+    );
+    save();
+  }
+  return data.goals[date];
+}
+function renderGoals() {
+  const date=$("goalDate").value || dayKey();
+  const goals=getGoals(date);
+  $("goalList").innerHTML=goals.map((g,i)=>`
+    <div class="checkrow ${g.done?"done":""}">
+      <input type="checkbox" id="goal${i}" ${g.done?"checked":""}>
+      <label for="goal${i}"><span class="tag">${safeText(g.subject)}</span> ${safeText(g.text)}</label>
+    </div>`).join("");
+  $("goalList").querySelectorAll("input").forEach((el,i)=>el.addEventListener("change",()=>{
+    goals[i].done=el.checked;save();renderGoals();renderHome();
+  }));
+  $("homeGoals").innerHTML=goals.filter(g=>!g.done).slice(0,4).map(g=>
+    `<div class="checkrow"><label><span class="tag">${safeText(g.subject)}</span> ${safeText(g.text)}</label></div>`
+  ).join("") || "<p>All suggested goals completed! Lovely work. ♡</p>";
+}
+function renderTasks() {
+  const list=$("taskList");
+  if (!data.tasks.length) {list.innerHTML='<p class="muted">No extra tasks yet. Add one above ♡</p>';return;}
+  list.innerHTML=data.tasks.map(t=>`
+    <div class="checkrow ${t.done?"done":""}">
+      <input type="checkbox" data-task="${t.id}" ${t.done?"checked":""}>
+      <label><strong>${safeText(t.title)}</strong> <span class="tag">${safeText(t.subject)}</span>
+      <div class="muted">${safeText(t.priority)} priority${t.due?" · Due "+safeText(t.due):""}</div></label>
+      <button class="btn danger small" data-delete="${t.id}">Delete</button>
+    </div>`).join("");
+  list.querySelectorAll("[data-task]").forEach(el=>el.addEventListener("change",()=>{
+    const t=data.tasks.find(t=>t.id===el.dataset.task);if(t)t.done=el.checked;save();renderTasks();renderHome();
+  }));
+  list.querySelectorAll("[data-delete]").forEach(el=>el.addEventListener("click",()=>{
+    data.tasks=data.tasks.filter(t=>t.id!==el.dataset.delete);save();renderTasks();renderHome();
+  }));
+}
+$("taskForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  data.tasks.push({
+    id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),
+    title:$("taskName").value.trim(),subject:$("taskSubject").value,
+    priority:$("taskPriority").value,due:$("taskDue").value,done:false
+  });
+  save();$("taskName").value="";renderTasks();renderHome();
+});
+$("notes").value=data.notes;
+$("notes").addEventListener("input",()=>{data.notes=$("notes").value;save();});
+function medKey() {return dayKey();}
+function renderMeds() {
+  const key=medKey();if(!data.meds[key])data.meds[key]={};
+  $("medList").innerHTML=medicines.map(m=>`
+    <div class="checkrow ${data.meds[key][m.id]?"done":""}">
+      <input type="checkbox" id="med-${m.id}" ${data.meds[key][m.id]?"checked":""}>
+      <label for="med-${m.id}"><strong>${safeText(m.name)}</strong><div class="muted">${m.time}</div></label>
+    </div>`).join("");
+  medicines.forEach(m=>$("med-"+m.id).addEventListener("change",e=>{
+    data.meds[key][m.id]=e.target.checked;save();renderMeds();renderHome();
+  }));
+}
+function resetMeds() {data.meds[medKey()]={};save();renderMeds();renderHome();}
+function renderRevision() {
+  const subject=$("revisionSubject").value;
+  const sections=syllabus[subject]||[];
+  if(!data.revisions[subject])data.revisions[subject]={};
+  const checks=data.revisions[subject];
+  let html="";
+  sections.forEach(section=>{
+    html+=`<h3>${safeText(section.name)}</h3>`;
+    section.topics.forEach((topic,i)=>{
+      const key=section.name+"-"+i;
+      html+=`<div class="checkrow ${checks[key]?"done":""}">
+        <input type="checkbox" data-topic="${safeText(key)}" ${checks[key]?"checked":""}>
+        <label>${safeText(topic)}</label></div>`;
+    });
+  });
+  $("revisionList").innerHTML=html;
+  $("revisionList").querySelectorAll("[data-topic]").forEach(el=>el.addEventListener("change",()=>{
+    checks[el.dataset.topic]=el.checked;save();renderRevision();
+  }));
+  const all=sections.flatMap(s=>s.topics.map((t,i)=>checks[s.name+"-"+i]));
+  const done=all.filter(Boolean).length;
+  $("revisionProgress").style.width=(all.length?done/all.length*100:0)+"%";
+  $("revisionCount").textContent=`${done} of ${all.length} topic checkboxes completed for ${subject}.`;
+}
+$("revisionSubject").addEventListener("change",renderRevision);
+function renderHome() {
+  const goals=getGoals();
+  const completed=goals.filter(g=>g.done).length;
+  $("homeTasks").textContent=completed+"/"+goals.length;
+  $("taskProgress").style.width=(goals.length?completed/goals.length*100:0)+"%";
+  const sessions=data.sessions.filter(s=>s.date===dayKey());
+  $("homeSessions").textContent=sessions.length;
+  $("homeMinutes").textContent=sessions.reduce((a,s)=>a+s.minutes,0);
+  const meds=data.meds[medKey()]||{};
+  $("homeMeds").textContent=medicines.filter(m=>meds[m.id]).length+"/"+medicines.length;
+  $("streakBadge").textContent="🔥 "+(data.streak||0)+"-day streak";
+  renderSchedule($("todaySchedule"),currentDayName());
+  renderGoals();
+}
+function updateStreak() {
+  const date=dayKey();
+  if(data.lastGoalDate===date)return;
+  const yesterday=shiftDate(date,-1);
+  const done=getGoals(date).some(g=>g.done) || data.sessions.some(s=>s.date===date);
+  if(!done)return;
+  data.streak=data.lastGoalDate===yesterday?(data.streak||0)+1:1;
+  data.bestStreak=Math.max(data.bestStreak||0,data.streak);
+  data.lastGoalDate=date;save();
+}
+function renderStats() {
+  updateStreak();
+  $("statStreak").textContent=(data.streak||0)+" days";
+  $("bestStreak").textContent=(data.bestStreak||0)+" days";
+  $("totalSessions").textContent=data.sessions.length;
+  $("totalMinutes").textContent=data.sessions.reduce((n,s)=>n+s.minutes,0)+" min";
+  const days=[];
+  for(let i=6;i>=0;i--)days.push(shiftDate(dayKey(),-i));
+  $("weeklyStats").innerHTML=days.map(d=>{
+    const n=data.sessions.filter(s=>s.date===d).reduce((a,s)=>a+s.minutes,0);
+    return `<div style="margin:12px 0"><div class="row"><span>${d}</span><strong>${n} min</strong></div><div class="progress"><div style="width:${Math.min(100,n/180*100)}%"></div></div></div>`;
+  }).join("");
+}
+function showPage(id) {
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+  if(id==="stats")renderStats();
+  if(id==="stats")renderAlevel();
+}
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+function refreshHeader() {
+  const now=new Date();
+  $("todayLine").textContent=now.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"});
+  $("dateBadge").textContent=localDate();
+  const hour=now.getHours();
+  $("greeting").textContent=(hour<12?"Good morning":hour<18?"Good afternoon":"Good evening")+", lovely human! ♡";
+}
+$("goalDate").value=dayKey();
+$("goalDate").addEventListener("change",renderGoals);
+function resetTodayGoals() {
+  delete data.goals[$("goalDate").value||dayKey()];save();renderGoals();renderHome();
+}
+
+// Browser notifications while this page is open.
+async function requestNotifications() {
+  if(!("Notification" in window)) {
+    $("notificationStatus").textContent="This browser does not support notifications.";
+    return;
+  }
+  const result=await Notification.requestPermission();
+  $("notificationStatus").textContent=result==="granted"?
+    "Notifications enabled while this website remains open ♡":
+    "Notifications are not enabled. You can change this in browser site settings.";
+}
+$("notificationStatus").textContent=("Notification" in window)?
+  "Browser notifications can work while this website is open.":
+  "This browser does not support notifications.";
+function notify(title,body) {
+  if("Notification" in window && Notification.permission==="granted" && document.visibilityState==="visible") {
+    try {new Notification(title,{body});} catch(e) {}
+  }
+}
+let alerted=new Set();
+function checkMedicineTimes() {
+  const now=new Date(),date=dayKey();
+  const hh=String(now.getHours()).padStart(2,"0"),mm=String(now.getMinutes()).padStart(2,"0");
+  const current=hh+":"+mm;
+  medicines.forEach(m=>{
+    const [h,rest]=m.time.split(":");
+    let hour=Number(h);
+    if(m.time.includes("PM")&&hour!==12)hour+=12;
+    if(m.time.includes("AM")&&hour===12)hour=0;
+    const time=String(hour).padStart(2,"0")+":"+rest.slice(0,2);
+    const key=date+"-"+m.id;
+    if(current===time&&!alerted.has(key)) {
+      alerted.add(key);
+      if(!(data.meds[date]||{})[m.id])notify("Medicine reminder ♡",m.name+" · "+m.time);
+    }
+  });
+}
+function exportData() {
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download="my-study-diary-backup.json";a.click();URL.revokeObjectURL(url);
+}
+$("importFile").addEventListener("change",async e=>{
+  const file=e.target.files[0];if(!file)return;
+  try {
+    const imported=JSON.parse(await file.text());
+    if(!imported||typeof imported!=="object"||Array.isArray(imported))throw new Error();
+    data={...defaultData(),...imported};save();location.reload();
+  } catch(err) {alert("That backup file could not be read.");}
+});
+
+// Pomodoro timer with a local rain-like ambience generator.
+let timerInterval=null,timerRunning=false,timerIsBreak=false;
+let activeFocusMinutes = 25;
+let timerSeconds=25*60,remaining=timerSeconds;
+let audioContext=null,noiseSource=null,noiseGain=null,rainOn=false;
+function timerFormat(sec) {
+  return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0");
+}
+function renderTimer() {
+  $("timerDisplay").textContent=timerFormat(remaining);
+  $("timerMode").textContent=timerIsBreak?"Cozy break time":"Focus time";
+  $("startTimer").textContent=timerRunning?"♡ Running":"▶ Start";
+}
+function stopTimerInterval() {if(timerInterval)clearInterval(timerInterval);timerInterval=null;timerRunning=false;}
+function startTimer() {
+  if(timerRunning)return;
+  if (!timerIsBreak) {
+    activeFocusMinutes = Math.max(
+      1,
+      Math.min(120, Number($("focusLength").value) || 25)
+    );
+  }
+
+  timerRunning=true;
+  timerInterval=setInterval(()=>{
+    remaining--;
+    if(remaining<=0) {
+      stopTimerInterval();remaining=0;renderTimer();
+      if(!timerIsBreak) {
+        data.sessions.push({
+      date: dayKey(),
+      minutes: activeFocusMinutes
+     });
+        save();updateStreak();renderHome();
+        notify("Pomodoro complete! 🍅","Lovely work. Take a little break.");
+      } else notify("Break finished ♡","Ready for another gentle focus session?");
+      if("vibrate" in navigator)navigator.vibrate?.([150,80,150]);
+    }
+    renderTimer();
+  },1000);
+  renderTimer();
+}
+function pauseTimer(){stopTimerInterval();renderTimer();}
+function resetTimer(){
+  stopTimerInterval();
+  timerSeconds=(timerIsBreak?Number($("breakLength").value):Number($("focusLength").value))*60;
+  if(!Number.isFinite(timerSeconds)||timerSeconds<60)timerSeconds=25*60;
+  remaining=timerSeconds;renderTimer();
+}
+function switchTimer(){
+  timerIsBreak=!timerIsBreak;resetTimer();
+}
+$("startTimer").addEventListener("click",startTimer);
+$("pauseTimer").addEventListener("click",pauseTimer);
+$("resetTimer").addEventListener("click",resetTimer);
+$("switchTimer").addEventListener("click",switchTimer);
+$("focusLength").addEventListener("change",()=>{if(!timerIsBreak)resetTimer();});
+$("breakLength").addEventListener("change",()=>{if(timerIsBreak)resetTimer();});
+
+function startRain() {
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC){alert("Audio is not supported in this browser.");return;}
+  if(rainOn){stopRain();return;}
+  audioContext=new AC();
+  const length=audioContext.sampleRate*3;
+  const buffer=audioContext.createBuffer(1,length,audioContext.sampleRate);
+  const channel=buffer.getChannelData(0);
+  let last=0;
+  for(let i=0;i<length;i++){
+    const white=Math.random()*2-1;
+    last=last*0.92+white*0.08;
+    channel[i]=last*3.5;
+  }
+  noiseSource=audioContext.createBufferSource();
+  noiseSource.buffer=buffer;noiseSource.loop=true;
+  const filter=audioContext.createBiquadFilter();
+  filter.type="lowpass";filter.frequency.value=1000;
+  noiseGain=audioContext.createGain();
+  noiseGain.gain.value=Number($("rainVolume").value)/100*0.22;
+  noiseSource.connect(filter);filter.connect(noiseGain);noiseGain.connect(audioContext.destination);
+  noiseSource.start();rainOn=true;$("rainButton").textContent="🌧️ Stop rain ambience";
+}
+function stopRain(){
+  if(noiseSource){try{noiseSource.stop();}catch(e){}noiseSource.disconnect();noiseSource=null;}
+  if(audioContext){audioContext.close();audioContext=null;}
+  noiseGain=null;rainOn=false;$("rainButton").textContent="🌧️ Play rain ambience";
+}
+$("rainButton").addEventListener("click",startRain);
+$("rainVolume").addEventListener("input",()=>{
+  if(noiseGain)noiseGain.gain.value=Number($("rainVolume").value)/100*0.22;
+});
+window.addEventListener("beforeunload",()=>{stopTimerInterval();if(rainOn)stopRain();});
+
+renderDays();
+$("scheduleTitle").textContent=selectedDay+" ♡";
+renderSchedule($("fullSchedule"),selectedDay);
+renderTasks();
+renderMeds();
+renderRevision();
+refreshHeader();
+renderHome();
+renderStats();
+renderTimer();
+renderAlevel();
+
+setInterval(checkMedicineTimes, 15000);
+
+setInterval(() => {
+  if (localDate() !== $("goalDate").value) {
+    refreshHeader();
+    $("goalDate").value = dayKey();
+    renderMeds();
+    renderGoals();
+    renderHome();
+  }
+}, 30000);
+
+// Full-screen Pomodoro controls ♡
+const fullscreenBtn = document.getElementById("fullscreenBtn");
+
+fullscreenBtn.addEventListener("click", () => {
+  const isFullscreen =
+    document.body.classList.contains("pomodoro-fullscreen");
+
+  document.body.classList.toggle("pomodoro-fullscreen", !isFullscreen);
+
+  fullscreenBtn.textContent = isFullscreen
+    ? "⛶ Enter Full Screen"
+    : "✕ Exit Full Screen";
+});
+</script>
+</body>
+</html>
