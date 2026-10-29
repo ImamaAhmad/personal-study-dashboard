@@ -287,16 +287,189 @@ body.pomodoro-fullscreen #fullscreenBtn {
   </div>
 </section>
 
+
 <section class="page" id="tasks">
   <div class="card">
     <h2>🌸 Today's goals</h2>
-    <p class="muted">Suggested AS practice goals, not a claim that these exact topics are scheduled in class. Adjust them to your current chapter.</p>
+    <p class="muted">Small, consistent actions build strong exam performance. These goals are general, so they work throughout your AS and A Level journey.</p>
     <div class="row">
       <label for="goalDate">Date</label><input id="goalDate" type="date">
       <button class="btn lav" onclick="resetTodayGoals()">Restore suggested goals</button>
     </div>
     <div id="goalList"></div>
   </div>
+
+  <div class="card">
+    <h2>🎀 The A* Study Playbook</h2>
+    <p class="muted">Evidence-informed techniques used in effective learning. Choose what you need and practise it consistently.</p>
+
+    <div class="checkrow">
+      <label>
+        <strong>🧠 1. Active recall — remember before you reread</strong>
+        <p>Close your notes and retrieve definitions, equations, explanations or methods from memory. Then check what you missed. Flashcards, blank-page recall and self-testing are useful tools.</p>
+        <span class="tag">Best for: theory and memory</span>
+      </label>
+    </div>
+
+    <div class="checkrow">
+      <label>
+        <strong>🌷 2. Spaced repetition — revisit before you forget</strong>
+        <p>Review material across multiple days instead of cramming it into one sitting. A practical starting pattern is the same day, 1 day later, 3 days later, 7 days later and 14 days later. Adjust it when you struggle or find the material easy.</p>
+        <span class="tag">Best for: long-term retention</span>
+      </label>
+    </div>
+
+    <div class="checkrow">
+      <label>
+        <strong>✏️ 3. Practise exam questions early</strong>
+        <p>After learning the basics, attempt relevant questions without looking at worked solutions. Start untimed while learning a method, then gradually introduce time limits. Don't wait until revision season to discover what you cannot apply.</p>
+        <span class="tag">Best for: application and problem-solving</span>
+      </label>
+    </div>
+
+    <div class="checkrow">
+      <label>
+        <strong>🔎 4. Keep a mistake-to-mastery log</strong>
+        <p>For every important mistake, record the topic, what went wrong, the correct reasoning and what you will do differently. Classify it as forgotten knowledge, misunderstanding, method selection, calculation, interpretation or exam technique.</p>
+        <span class="tag">Best for: turning marks into progress</span>
+      </label>
+    </div>
+
+    <div class="checkrow">
+      <label>
+        <strong>🔁 5. Redo mistakes without the solution</strong>
+        <p>Looking at a worked answer can make a method feel familiar without proving you can reproduce it. Hide the solution, retry the question independently, then attempt a similar question later.</p>
+        <span class="tag">Best for: independent performance</span>
+      </label>
+    </div>
+
+    <div class="checkrow">
+      <label>
+        <strong>📊 6. Use feedback, not just marks</strong>
+        <p>Mark your work honestly using the appropriate mark scheme. Identify exactly which marks you lost and why. If you repeatedly misunderstand the same idea, return to the underlying concept before doing more questions.</p>
+        <span class="tag">Best for: targeted improvement</span>
+      </label>
+    </div>
+
+    <div class="checkrow">
+      <label>
+        <strong>⏱️ 7. Build exam timing gradually</strong>
+        <p>First learn how to solve questions correctly. Then practise under time pressure, complete timed sections and eventually attempt full papers. Review timing, accuracy and unanswered questions after every attempt.</p>
+        <span class="tag">Best for: exam readiness</span>
+      </label>
+    </div>
+
+    <div class="checkrow">
+      <label>
+        <strong>🗣️ 8. Explain it in your own words</strong>
+        <p>Explain a concept as if teaching someone who has never studied it. If you cannot explain why a step works, identify the gap and revisit it. Teaching is a useful test of understanding, not a replacement for exam practice.</p>
+        <span class="tag">Best for: conceptual understanding</span>
+      </label>
+    </div>
+
+    <div class="checkrow">
+      <label>
+        <strong>🎯 9. Study the weakest link first</strong>
+        <p>Choose the skill that currently limits your marks. If you forget CS theory, practise retrieval. If you understand Physics theory but cannot solve problems, practise identifying principles, drawing diagrams and setting up equations.</p>
+        <span class="tag">Best for: efficient recovery</span>
+      </label>
+    </div>
+
+    <div class="checkrow">
+      <label>
+        <strong>🌙 10. Protect sleep and focus</strong>
+        <p>Keep a regular sleep schedule, take breaks and remove distractions during focused work. Sleep supports learning and memory. More exhausted study hours are not automatically more productive.</p>
+        <span class="tag">Best for: sustainable consistency</span>
+      </label>
+    </div>
+
+    <p class="muted">These methods are supported by learning research, but no technique guarantees a particular grade. Use the methods that address your actual weaknesses and measure whether your independent exam performance improves.</p>
+  </div>
+
+  <div class="card">
+    <h2>🩷 The comeback corner</h2>
+    <p class="muted">For the days when a bad test makes you question whether you can reach A*.</p>
+
+    <div class="stat">
+      <strong style="font-size:22px">One bad test is information, not your identity. ♡</strong>
+      <p>You are allowed to be disappointed. You are also allowed to recover, learn the material properly and become much better at answering questions.</p>
+    </div>
+
+    <h3>🌷 Remember these things</h3>
+    <div class="checkrow">
+      <label>
+        <strong>01. Your current score is a starting point.</strong>
+        <p>A test covering a small number of chapters shows how you performed on that material at that time. It does not establish your final A Level grade.</p>
+      </label>
+    </div>
+
+    <div class="checkrow">
+      <label>
+        <strong>02. Find the real problem before adding more hours.</strong>
+        <p>Forgetting theory, misunderstanding a concept and being unable to apply it require different solutions. Diagnose the problem instead of blindly repeating the same revision routine.</p>
+      </label>
+    </div>
+
+    <div class="checkrow">
+      <label>
+        <strong>03. You do not need to fix everything today.</strong>
+        <p>One concept understood, one mistake corrected and one question solved independently are meaningful progress. Consistency beats occasional panic-driven marathons.</p>
+      </label>
+    </div>
+
+    <div class="checkrow">
+      <label>
+        <strong>04. Never confuse struggling with being incapable.</strong>
+        <p>Difficulty can reveal exactly what you need to practise. It is not proof that you are not intelligent enough for the subject.</p>
+      </label>
+    </div>
+
+    <div class="checkrow">
+      <label>
+        <strong>05. Let evidence build your confidence.</strong>
+        <p>Confidence becomes more reliable when you can solve questions without notes, explain your reasoning and reproduce your methods on unfamiliar problems.</p>
+      </label>
+    </div>
+
+    <div class="stat">
+      <p><strong>Your reminder:</strong></p>
+      <p>"I don't need to be an A* student every single day. I need to keep building the knowledge and skills that make an A* possible."</p>
+      <button class="btn primary" onclick="GenUI_unused_placeholder()">♡</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>⭐ Your weekly recovery challenge</h2>
+    <p class="muted">Use this as a flexible weekly checklist. Tick each action when you have genuinely completed it.</p>
+
+    <div class="checkrow">
+      <input type="checkbox" id="weekly1">
+      <label for="weekly1">Identify my three most important knowledge or exam-technique gaps.</label>
+    </div>
+    <div class="checkrow">
+      <input type="checkbox" id="weekly2">
+      <label for="weekly2">Practise retrieving previously learned material without looking at notes.</label>
+    </div>
+    <div class="checkrow">
+      <input type="checkbox" id="weekly3">
+      <label for="weekly3">Complete independent exam questions in each subject I need to work on.</label>
+    </div>
+    <div class="checkrow">
+      <input type="checkbox" id="weekly4">
+      <label for="weekly4">Review my mistakes and redo difficult questions without solutions.</label>
+    </div>
+    <div class="checkrow">
+      <input type="checkbox" id="weekly5">
+      <label for="weekly5">Revisit older material using spaced practice.</label>
+    </div>
+    <div class="checkrow">
+      <input type="checkbox" id="weekly6">
+      <label for="weekly6">Review what improved and choose next week's priorities.</label>
+    </div>
+
+    <p class="muted">You don't have to complete every action perfectly. Use missed goals to adjust your next week, not to punish yourself.</p>
+  </div>
+
   <div class="card">
     <h2>📝 My task planner</h2>
     <form id="taskForm" class="grid">
@@ -310,6 +483,7 @@ body.pomodoro-fullscreen #fullscreenBtn {
     </form>
     <div id="taskList"></div>
   </div>
+
   <div class="card">
     <h2>🧁 Notes for later</h2>
     <textarea id="notes" placeholder="Homework details, things to ask your teacher, or anything on your mind..."></textarea>
@@ -443,6 +617,18 @@ body.pomodoro-fullscreen #fullscreenBtn {
 </section>
 </main>
 <footer>Made with love, pastel clouds & tiny steps ♡</footer>
+
+<div class="card">
+  <h2>🎀 Your motivational corner ♡</h2>
+  <p>One bad test does not decide your A-Level results.
+  Learn from your mistakes, practise actively, and keep showing up.
+  Progress is built one question at a time. 🌷</p>
+
+  <button class="btn primary"
+    onclick="alert('One step at a time. Keep going. ♡')">
+    ♡ I needed this
+  </button>
+</div>
 
 <script>
 "use strict";
@@ -617,27 +803,31 @@ const school = {
   ],
   Saturday:[],Sunday:[]
 };
+
 const suggestedGoals = {
-  Mathematics:[
-    "Solve 10 Pure Mathematics questions from your current topic.",
-    "Practise 5 differentiation questions.",
-    "Practise 5 binomial expansion questions, if currently covered.",
-    "Review mistakes and write down one method to remember."
+  Mathematics: [
+    "Review a previously learned concept using active recall.",
+    "Complete independent exam-style questions and mark them.",
+    "Redo a difficult question without looking at the solution.",
+    "Record a recurring mistake and practise correcting it."
   ],
-  Physics:[
-    "Complete 8 structured questions from your current topic.",
-    "Practise 5 calculations with units and significant figures.",
-    "Review key definitions and equations for 10 minutes."
+  Physics: [
+    "Recall key concepts, definitions and equations from memory.",
+    "Practise applying concepts to exam-style problems.",
+    "Review mistakes in diagrams, equations, units or reasoning.",
+    "Redo a challenging question independently."
   ],
-  "Computer Science":[
-    "Answer 5 short theory questions from your current topic.",
-    "Trace or write 2 pseudocode/algorithm problems.",
-    "Review 5 key definitions using active recall."
+  "Computer Science": [
+    "Test your recall of important theory and definitions.",
+    "Practise explaining concepts without looking at notes.",
+    "Attempt an algorithm, pseudocode or programming problem.",
+    "Review errors and retest forgotten information."
   ],
-  Economics:[
-    "Define 5 key terms from the current chapter.",
-    "Practise one data-response or diagram question.",
-    "Write one short explanation using a clear chain of reasoning."
+  Economics: [
+    "Recall key terms and explain them in your own words.",
+    "Practise explaining economic cause-and-effect chains.",
+    "Attempt a relevant diagram or exam-style response.",
+    "Review your answer against the question requirements."
   ]
 };
 const syllabus = {
